@@ -2,9 +2,11 @@ import React from "react";
 import "./App.css";
 import firebase from "./firebase";
 import config from "./config";
-import { Layout, Avatar, Button } from "antd";
+import { Layout, Avatar, Button, Form, Input } from "antd";
 import { GithubOutlined } from "@ant-design/icons";
 import { Helmet } from "react-helmet";
+import Filter from "bad-words";
+import OpenMeeting from "./components/OpenMeeting";
 const { Content, Footer } = Layout;
 
 //https://github.com/lowmess/hero-patterns#readme
@@ -19,7 +21,6 @@ class App extends React.Component {
 			homeZoomURL: "",
 			homeZoomScheme: "",
 			homeZoomJoin: false,
-			openMeetings: {},
 			mobile: /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(
 				navigator.userAgent.toLowerCase()
 			),
@@ -34,34 +35,19 @@ class App extends React.Component {
 				"value",
 				function (snapshot) {
 					if (snapshot.exists()) {
-						const homeZoomURL =
-							"https://" + snapshot.val().domain + "/j/" + snapshot.val().id;
-						const homeZoomScheme =
-							(this.state.mobile ? "zoomus" : "zoommtg") +
-							"://" +
-							snapshot.val().domain +
-							"/join?confno=" +
-							snapshot.val().id;
-
-						this.setState({ homeZoomURL, homeZoomScheme });
+						const homeZoomScheme = this.state.mobile
+							? snapshot.val().mobileScheme
+							: snapshot.val().desktopScheme;
+						this.setState({
+							homeZoomURL: snapshot.val().url,
+							homeZoomScheme,
+						});
 
 						if (config.autoLaunch) {
 							window.location.href = homeZoomScheme;
-							this.logHomeJoin();
 							this.setState({ homeZoomJoin: true });
+							this.logHomeJoin();
 						}
-					}
-				}.bind(this)
-			);
-
-		firebase
-			.database()
-			.ref("openMeetings")
-			.on(
-				"value",
-				function (snapshot) {
-					if (snapshot.exists()) {
-						this.setState({ openMeetings: snapshot.val() });
 					}
 				}.bind(this)
 			);
@@ -95,13 +81,13 @@ class App extends React.Component {
 									onClick={function () {
 										if (!this.state.homeZoomJoin) {
 											this.logHomeJoin();
+											setInterval(
+												function () {
+													this.setState({ homeZoomJoin: true });
+												}.bind(this),
+												100
+											);
 										}
-										setInterval(
-											function () {
-												this.setState({ homeZoomJoin: true });
-											}.bind(this),
-											100
-										);
 									}.bind(this)}
 								>
 									Join Zoom
@@ -109,7 +95,7 @@ class App extends React.Component {
 							</div>
 						</>
 					) : this.state.open ? (
-						<h1>Start Meeting!</h1>
+						<OpenMeeting />
 					) : (
 						<>
 							<Helmet>

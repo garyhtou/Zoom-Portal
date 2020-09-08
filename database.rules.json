@@ -21,15 +21,19 @@
 		"openMeetings": {
 			".read": true,
 			".write": false,
-			"joins": {
+			"meetings": {
 				".read": true,
-				".write": false,
+				".write": "!data.exists()",
 				"$meetingPushKey": {
 					".read": true,
 					".write": "!data.exists()",
-					"$joinPushKey": {
+					"joins": {
 						".read": true,
-						".write": "!data.exists()"
+						".write": false,
+						"$joinPushKey": {
+							".read": true,
+							".write": "!data.exists()"
+						}
 					}
 				}
 			}
