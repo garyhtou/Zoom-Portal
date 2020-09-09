@@ -18,8 +18,8 @@ class App extends React.Component {
 		this.state = {
 			home: window.location.pathname === "/",
 			open: window.location.pathname.toLowerCase() === "/open",
-			homeZoomURL: "",
-			homeZoomScheme: "",
+			homeZoomURL: "#",
+			homeZoomScheme: "#",
 			homeZoomJoin: false,
 			mobile: /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(
 				navigator.userAgent.toLowerCase()
@@ -66,32 +66,36 @@ class App extends React.Component {
 				<Content style={{ padding: "5vw" }}>
 					{this.state.home ? (
 						<>
-							<div className="home-title">
-								<Avatar src="gary.jpg" className="home-title-avatar" />
-								<h1>Join Gary's Zoom Meeting</h1>
-							</div>
-							<div>
-								<Button
-									type="primary"
-									href={
-										!this.state.homeZoomJoin
-											? this.state.homeZoomScheme
-											: this.state.homeZoomURL
-									}
-									onClick={function () {
-										if (!this.state.homeZoomJoin) {
-											this.logHomeJoin();
-											setInterval(
-												function () {
-													this.setState({ homeZoomJoin: true });
-												}.bind(this),
-												100
-											);
-										}
-									}.bind(this)}
-								>
-									Join Zoom
-								</Button>
+							<div className="home-wrapper">
+								<div className="home-title">
+									<Avatar src="gary.jpg" className="home-title-avatar" />
+									<div className="home-title-right">
+										<h1>Gary's Zoom Meeting</h1>
+										<Button
+											type="primary"
+											href={
+												!this.state.homeZoomJoin
+													? this.state.homeZoomScheme
+													: this.state.homeZoomURL
+											}
+											onClick={function () {
+												if (!this.state.homeZoomJoin) {
+													this.logHomeJoin();
+													setInterval(
+														function () {
+															this.setState({ homeZoomJoin: true });
+														}.bind(this),
+														100
+													);
+												}
+											}.bind(this)}
+											size="large"
+										>
+											Join Zoom
+										</Button>
+									</div>
+								</div>
+								<div>still in development!</div>
 							</div>
 						</>
 					) : this.state.open ? (

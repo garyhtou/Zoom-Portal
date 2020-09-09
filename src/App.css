@@ -1,9 +1,25 @@
 @import "~antd/dist/antd.css";
 
+.home-wrapper {
+	background-color: white;
+	padding: 5em;
+	border-radius: 5em;
+	min-height: 80vh;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
 .home-title {
 	display: flex;
-	align-items: flex-end;
+	align-items: center;
+	margin-bottom: 5vw;
 }
+/* .home-title-right {
+	text-align: center;
+} */
 .home-title-avatar {
 	width: 15vw;
 	height: 15vw;
@@ -11,7 +27,6 @@
 }
 .home-title h1 {
 	font-size: 4em;
-	margin: 0;
 }
 
 .gh-link {
