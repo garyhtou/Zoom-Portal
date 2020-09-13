@@ -1,8 +1,30 @@
 @import "~antd/dist/antd.css";
 
+:root {
+	background: rgb(9, 9, 121);
+	background: linear-gradient(
+		28deg,
+		rgba(9, 9, 121, 1) 0%,
+		rgba(0, 96, 116, 1) 100%
+	);
+	color: white;
+}
+.bg-transparent,
+body {
+	background-color: transparent;
+	color: white;
+}
+
 .home-wrapper {
-	background-color: white;
-	padding: 5em;
+	/* background-color: white; */
+	/* background: rgb(9, 9, 121);
+	background: linear-gradient(
+		28deg,
+		rgba(9, 9, 121, 1) 0%,
+		rgba(0, 96, 116, 1) 100%
+	); */
+
+	padding: 10vw;
 	border-radius: 5em;
 	min-height: 80vh;
 
@@ -16,14 +38,31 @@
 	display: flex;
 	align-items: center;
 	margin-bottom: 5vw;
+	width: 100%;
+	height: 100%;
 }
-/* .home-title-right {
-	text-align: center;
-} */
+@media only screen and (max-width: 810px) {
+	.home-title {
+		flex-wrap: wrap-reverse;
+	}
+	.home-title-avatar {
+		width: 40vw !important;
+		height: 40vw !important;
+		margin-left: 0 !important;
+		text-align: left;
+		margin-bottom: 5vh;
+	}
+}
+.home-title-content h1 {
+	color: white;
+}
+.home-join-button {
+	border-radius: 100vw;
+}
 .home-title-avatar {
-	width: 15vw;
-	height: 15vw;
-	margin-right: 5vw;
+	width: 20vw;
+	height: 20vw;
+	margin-left: 10vw;
 }
 .home-title h1 {
 	font-size: 4em;

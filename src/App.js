@@ -62,15 +62,17 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<Layout style={{ minHeight: "100vh" }}>
-				<Content style={{ padding: "5vw" }}>
+			<Layout style={{ minHeight: "100vh" }} className="bg-transparent">
+				<Content style={{ padding: "5vw" }} className="bg-transparent">
 					{this.state.home ? (
 						<>
 							<div className="home-wrapper">
 								<div className="home-title">
-									<Avatar src="gary.jpg" className="home-title-avatar" />
-									<div className="home-title-right">
+									<div className="home-title-content">
 										<h1>Gary's Zoom Meeting</h1>
+										<p>
+											If you have having issues with the join button, try again!
+										</p>
 										<Button
 											type="primary"
 											href={
@@ -90,12 +92,19 @@ class App extends React.Component {
 												}
 											}.bind(this)}
 											size="large"
+											className="home-join-button"
 										>
 											Join Zoom
 										</Button>
 									</div>
+									<div>
+										<Avatar
+											src="https://assets.garytou.com/profile/GaryTou.jpg"
+											className="home-title-avatar"
+											shape="circle"
+										/>
+									</div>
 								</div>
-								<div>still in development!</div>
 							</div>
 						</>
 					) : this.state.open ? (
@@ -109,7 +118,7 @@ class App extends React.Component {
 						</>
 					)}
 				</Content>
-				<Footer style={{ textAlign: "center" }}>
+				<Footer style={{ textAlign: "center" }} className="bg-transparent">
 					<a className="gh-link" href="https://github.com/garytou2/Zoom-Portal">
 						Zoom Portal <GithubOutlined />
 					</a>
