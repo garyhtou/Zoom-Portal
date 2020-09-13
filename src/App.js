@@ -62,10 +62,10 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<Layout style={{ minHeight: "100vh" }} className="bg-transparent">
-				<Content style={{ padding: "5vw" }} className="bg-transparent">
-					{this.state.home ? (
-						<>
+			<>
+				{this.state.home ? (
+					<>
+						<div className="home">
 							<div className="home-wrapper">
 								<div className="home-title">
 									<div className="home-title-content">
@@ -73,7 +73,7 @@ class App extends React.Component {
 										<p>
 											If you have having issues with the join button, try again!
 										</p>
-										<Button
+										<button
 											type="primary"
 											href={
 												!this.state.homeZoomJoin
@@ -95,7 +95,7 @@ class App extends React.Component {
 											className="home-join-button"
 										>
 											Join Zoom
-										</Button>
+										</button>
 									</div>
 									<div>
 										<Avatar
@@ -104,28 +104,59 @@ class App extends React.Component {
 											shape="circle"
 										/>
 									</div>
-								</div>
+								</div>{" "}
 							</div>
-						</>
-					) : this.state.open ? (
-						<OpenMeeting />
-					) : (
-						<>
-							<Helmet>
-								<title>Gary's Zoom Portal - 404</title>
-							</Helmet>
-							<h1>404</h1>
-						</>
-					)}
-				</Content>
-				<Footer style={{ textAlign: "center" }} className="bg-transparent">
-					<a className="gh-link" href="https://github.com/garytou2/Zoom-Portal">
-						Zoom Portal <GithubOutlined />
-					</a>
-					<span className="credit-sep">|</span>
-					Developed by <a href="https://garytou.com">Gary Tou</a>
-				</Footer>
-			</Layout>
+							<Footer style={{ textAlign: "center" }} className="home-footer">
+								<a
+									className="gh-link"
+									href="https://github.com/garytou2/Zoom-Portal"
+								>
+									Zoom Portal <GithubOutlined />
+								</a>
+								<span className="credit-sep">|</span>
+								Developed by <a href="https://garytou.com">Gary Tou</a>
+							</Footer>
+						</div>
+					</>
+				) : this.state.open ? (
+					<Layout style={{ minHeight: "100vh" }}>
+						<Content style={{ padding: "5vw" }}>
+							<OpenMeeting />
+						</Content>
+						<Footer style={{ textAlign: "center" }}>
+							<a
+								className="gh-link"
+								href="https://github.com/garytou2/Zoom-Portal"
+							>
+								Zoom Portal <GithubOutlined />
+							</a>
+							<span className="credit-sep">|</span>
+							Developed by <a href="https://garytou.com">Gary Tou</a>
+						</Footer>
+					</Layout>
+				) : (
+					<>
+						<Layout style={{ minHeight: "100vh" }}>
+							<Content style={{ padding: "5vw" }}>
+								<Helmet>
+									<title>Gary's Zoom Portal - 404</title>
+								</Helmet>
+								<h1>404</h1>
+							</Content>
+							<Footer style={{ textAlign: "center" }}>
+								<a
+									className="gh-link"
+									href="https://github.com/garytou2/Zoom-Portal"
+								>
+									Zoom Portal <GithubOutlined />
+								</a>
+								<span className="credit-sep">|</span>
+								Developed by <a href="https://garytou.com">Gary Tou</a>
+							</Footer>
+						</Layout>
+					</>
+				)}
+			</>
 		);
 	}
 }

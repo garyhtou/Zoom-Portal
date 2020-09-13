@@ -1,6 +1,15 @@
 @import "~antd/dist/antd.css";
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 
-:root {
+.home {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	width: 100%;
+	min-height: 100vh;
+
 	background: rgb(9, 9, 121);
 	background: linear-gradient(
 		28deg,
@@ -9,35 +18,29 @@
 	);
 	color: white;
 }
-.bg-transparent,
-body {
+.home-footer {
+	min-height: 5vh;
+	width: 100%;
 	background-color: transparent;
 	color: white;
 }
 
 .home-wrapper {
-	/* background-color: white; */
-	/* background: rgb(9, 9, 121);
-	background: linear-gradient(
-		28deg,
-		rgba(9, 9, 121, 1) 0%,
-		rgba(0, 96, 116, 1) 100%
-	); */
-
 	padding: 10vw;
 	border-radius: 5em;
-	min-height: 80vh;
+	width: 100%;
 
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	flex-grow: 1;
 }
 
 .home-title {
 	display: flex;
 	align-items: center;
-	margin-bottom: 5vw;
+	/* margin-bottom: 5vw; */
 	width: 100%;
 	height: 100%;
 }
@@ -53,25 +56,38 @@ body {
 		margin-bottom: 5vh;
 	}
 }
+@media only screen and (max-height: 400px) {
+	.home-wrapper {
+		padding-bottom: 5vw;
+	}
+}
+
 .home-title-content h1 {
 	color: white;
+	font-size: max(5em, 5vw);
+	line-height: 1.2;
+}
+.home-title-content p {
+	font-size: max(1.5em, 1.5vw);
 }
 .home-join-button {
 	border-radius: 100vw;
+	background-color: #2d8cff;
+	border-width: 0;
+	padding: max(1vw, 1vh) max(1.5vw, 1.5vh);
+
+	font-size: max(1.5em, 1vw);
+	font-family: "Lato", sans-serif;
 }
 .home-title-avatar {
-	width: 20vw;
-	height: 20vw;
+	width: min(20vw, 30vh);
+	height: min(20vw, 30vh);
 	margin-left: 10vw;
-}
-.home-title h1 {
-	font-size: 4em;
 }
 
 .gh-link {
 	color: inherit;
 }
-
 .credit-sep {
 	padding: 0 10px;
 }
