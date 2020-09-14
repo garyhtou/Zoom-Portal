@@ -2,19 +2,14 @@ import React from "react";
 import firebase from "./../firebase";
 import config from "./../config";
 import {
-	Layout,
-	Avatar,
 	Button,
 	Form,
 	Input,
 	notification,
 	List,
-	Space,
 	Tooltip,
 	Popconfirm,
 } from "antd";
-import { GithubOutlined } from "@ant-design/icons";
-import { Helmet } from "react-helmet";
 import Filter from "bad-words";
 import moment from "moment";
 import axios from "axios";

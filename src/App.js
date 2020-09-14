@@ -2,10 +2,10 @@ import React from "react";
 import "./App.css";
 import firebase from "./firebase";
 import config from "./config";
-import { Layout, Avatar, Button, Form, Input } from "antd";
+import { Layout, Avatar, Button, Form, Input, Tooltip } from "antd";
 import { GithubOutlined } from "@ant-design/icons";
 import { Helmet } from "react-helmet";
-import Filter from "bad-words";
+import moment from "moment";
 import OpenMeeting from "./components/OpenMeeting";
 const { Content, Footer } = Layout;
 
@@ -20,11 +20,15 @@ class App extends React.Component {
 			open: window.location.pathname.toLowerCase() === "/open",
 			homeZoomURL: "#",
 			homeZoomScheme: "#",
-			homeZoomJoin: false,
+			homeZoomJoin: /\bCrOS\b/.test(navigator.userAgent) ? true : false,
 			mobile: /iphone|ipod|ipad|android|blackberry|opera mini|opera mobi|skyfire|maemo|windows phone|palm|iemobile|symbian|symbianos|fennec/i.test(
 				navigator.userAgent.toLowerCase()
 			),
+			homeOngoing: null,
+			homeOnGoingMessage: null,
 		};
+
+		this.homeOnGoingMessage = this.homeOnGoingMessage.bind(this);
 	}
 
 	componentDidMount() {
@@ -51,6 +55,29 @@ class App extends React.Component {
 					}
 				}.bind(this)
 			);
+
+		fetch("https://api.garytou.com/v1/zoom/ongoing")
+			.then((response) => response.json())
+			.then((data) => {
+				if (Object.keys(data).length !== 0) {
+					return this.setState({ homeOngoing: data });
+				} else {
+					return this.setState({ homeOngoing: null });
+				}
+			})
+			.then(() => {
+				this.homeOnGoingMessage();
+				this.homeOnGoingMessageInteral = setInterval(
+					this.homeOnGoingMessage,
+					15000
+				);
+			});
+	}
+
+	componentWillUnmount() {
+		this.homeOnGoingMessageInteral &&
+			clearImmediate(this.homeOnGoingMessageInteral);
+		this.homeOnGoingMessageInteral = undefined;
 	}
 
 	async logHomeJoin() {
@@ -58,6 +85,22 @@ class App extends React.Component {
 			.database()
 			.ref("home/joins")
 			.push(firebase.database.ServerValue.TIMESTAMP);
+	}
+
+	homeOnGoingMessage() {
+		const message =
+			this.state.homeOngoing !== null
+				? this.state.homeOngoing.topic +
+				  " " +
+				  (moment(this.state.homeOngoing.start_time, "x").isBefore(moment())
+						? "started"
+						: "starting") +
+				  " " +
+				  moment(this.state.homeOngoing.start_time, "x").fromNow()
+				: null;
+		this.setState({
+			homeOnGoingMessage: message,
+		});
 	}
 
 	render() {
@@ -70,10 +113,9 @@ class App extends React.Component {
 								<div className="home-title">
 									<div className="home-title-content">
 										<h1>Gary's Zoom Meeting</h1>
-										<p>
-											If you have having issues with the join button, try again!
-										</p>
-										<button
+										<p>{this.state.homeOnGoingMessage} </p>
+
+										<Button
 											type="primary"
 											href={
 												!this.state.homeZoomJoin
@@ -95,14 +137,26 @@ class App extends React.Component {
 											className="home-join-button"
 										>
 											Join Zoom
-										</button>
+										</Button>
 									</div>
 									<div>
-										<Avatar
-											src="https://assets.garytou.com/profile/GaryTou.jpg"
-											className="home-title-avatar"
-											shape="circle"
-										/>
+										<Tooltip
+											title={
+												<a
+													href="https://garytou.com"
+													rel="noopener"
+													style={{ color: "inherit", fontWeight: "bold" }}
+												>
+													Visit my website
+												</a>
+											}
+										>
+											<Avatar
+												src="https://assets.garytou.com/profile/GaryTou.jpg"
+												className="home-title-avatar"
+												shape="circle"
+											/>
+										</Tooltip>
 									</div>
 								</div>{" "}
 							</div>
