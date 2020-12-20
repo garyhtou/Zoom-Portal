@@ -163,7 +163,7 @@ class App extends React.Component {
 							<Footer style={{ textAlign: "center" }} className="home-footer">
 								<a
 									className="gh-link"
-									href="https://github.com/garytou2/Zoom-Portal"
+									href="https://github.com/garyhtou/Zoom-Portal"
 								>
 									Zoom Portal <GithubOutlined />
 								</a>
@@ -180,7 +180,7 @@ class App extends React.Component {
 						<Footer style={{ textAlign: "center" }}>
 							<a
 								className="gh-link"
-								href="https://github.com/garytou2/Zoom-Portal"
+								href="https://github.com/garyhtou/Zoom-Portal"
 							>
 								Zoom Portal <GithubOutlined />
 							</a>
@@ -200,7 +200,7 @@ class App extends React.Component {
 							<Footer style={{ textAlign: "center" }}>
 								<a
 									className="gh-link"
-									href="https://github.com/garytou2/Zoom-Portal"
+									href="https://github.com/garyhtou/Zoom-Portal"
 								>
 									Zoom Portal <GithubOutlined />
 								</a>
