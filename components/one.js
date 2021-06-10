@@ -13,7 +13,6 @@ import {
 	useColorModeValue,
 	Avatar,
 } from '@chakra-ui/react';
-import Photo from './photo';
 
 export default function One(props) {
 	const call = props.calls[0];
