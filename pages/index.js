@@ -17,6 +17,7 @@ import {
 	useColorModeValue,
 	Spinner,
 	Grid,
+	GridItem,
 } from '@chakra-ui/react';
 import One from '../components/one';
 import moment from 'moment';
@@ -63,7 +64,7 @@ export default function Home() {
 						Gary Tou's
 						<br />
 						<Text as={'span'} color={'blue.400'}>
-							Zoom Meetings
+							Meetings
 						</Text>
 					</Heading>
 					{/* <Text color={'gray.500'}>
@@ -72,38 +73,64 @@ export default function Home() {
             them access to your pre-releases and sneak-peaks.
           </Text> */}
 
-					{loading ? (
-						<p>loading</p>
-					) : calls.length === 0 ? (
-						<p>none</p>
-					) : (
-						<>
-							{calls.map((c) => (
-								<Box
-									maxW={'320px'}
-									w={'full'}
-									bg={useColorModeValue('white', 'gray.900')}
-									boxShadow={'2xl'}
-									rounded={'lg'}
-									p={6}
-									textAlign={'center'}
-								>
-									<Heading fontSize={'2xl'} fontFamily={'body'}>
-										{c.name}
-									</Heading>
-									<Text fontWeight={600} color={'gray.500'} mb={4}>
-										{moment(c.start, 'X').fromNow()}
-									</Text>
-									<Text
-										textAlign={'center'}
-										color={useColorModeValue('gray.700', 'gray.400')}
-										px={3}
-									>
-										{c.description}
-									</Text>
+					<Text color={'gray.500'}>
+						Welcome to the waiting room!
+						{calls.length === 0 ? (
+							<>
+								<Text color={'gray.500'}>
+									There are no available meetings at this moment.
+								</Text>
+							</>
+						) : null}
+					</Text>
 
-									<Stack mt={8} direction={'row'} spacing={4}>
-										{/* <Button
+					{/* show calls, if there are any */}
+					<Grid templateColumns={'50% 50%'} gap={'5%'}>
+						{calls.map((c, i, arr) => (
+							<>
+								<Call
+									key={c.zoomId}
+									call={c}
+									colSpan={i == arr.length - 1 && arr.length % 2 == 1 ? 2 : 1}
+								/>
+							</>
+						))}
+					</Grid>
+				</Stack>
+			</Container>
+		</>
+	);
+}
+
+export function Call(props) {
+	const c = props.call;
+	const col = props.colSpan || 1;
+	return (
+		<GridItem colSpan={col}>
+			<Box
+				w={'full'}
+				bg={useColorModeValue('white', 'gray.900')}
+				boxShadow={'2xl'}
+				rounded={'lg'}
+				p={6}
+				textAlign={'center'}
+			>
+				<Heading fontSize={'2xl'} fontFamily={'body'}>
+					{c.name}
+				</Heading>
+				<Text fontWeight={600} color={'gray.500'} mb={4}>
+					{moment(c.start, 'X').fromNow()}
+				</Text>
+				<Text
+					textAlign={'center'}
+					color={useColorModeValue('gray.700', 'gray.400')}
+					px={3}
+				>
+					{c.description}
+				</Text>
+
+				<Stack mt={8} direction={'row'} spacing={4}>
+					{/* <Button
 								flex={1}
 								fontSize={'sm'}
 								rounded={'full'}
@@ -113,31 +140,26 @@ export default function Home() {
 							>
 								Message
 							</Button> */}
-										<Button
-											flex={1}
-											fontSize={'sm'}
-											rounded={'full'}
-											bg={'blue.400'}
-											color={'white'}
-											boxShadow={
-												'0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
-											}
-											_hover={{
-												bg: 'blue.500',
-											}}
-											_focus={{
-												bg: 'blue.500',
-											}}
-										>
-											Join
-										</Button>
-									</Stack>
-								</Box>
-							))}
-						</>
-					)}
+					<Button
+						flex={1}
+						fontSize={'sm'}
+						rounded={'full'}
+						bg={'blue.400'}
+						color={'white'}
+						boxShadow={
+							'0px 1px 25px -5px rgb(66 153 225 / 48%), 0 10px 10px -5px rgb(66 153 225 / 43%)'
+						}
+						_hover={{
+							bg: 'blue.500',
+						}}
+						_focus={{
+							bg: 'blue.500',
+						}}
+					>
+						Join
+					</Button>
 				</Stack>
-			</Container>
-		</>
+			</Box>
+		</GridItem>
 	);
 }
