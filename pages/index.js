@@ -87,13 +87,19 @@ export default function Home() {
 					</Text>
 
 					{/* show calls, if there are any */}
-					<Grid templateColumns={'50% 50%'} gap={'5%'}>
+					<Grid templateColumns={isMobile() ? '100%' : '50% 50%'} gap={'5%'}>
 						{calls.map((c, i, arr) => (
 							<>
 								<Call
 									key={c.zoomId}
 									call={c}
-									colSpan={i == arr.length - 1 && arr.length % 2 == 1 ? 2 : 1}
+									colSpan={
+										isMobile()
+											? 1
+											: i == arr.length - 1 && arr.length % 2 == 1
+											? 2
+											: 1
+									}
 								/>
 							</>
 						))}
