@@ -131,7 +131,7 @@ export function Call(props) {
 					{c.description}
 				</Text>
 
-				<Stack mt={8} direction={'row'} spacing={4}>
+				<Stack mt={8} mb={3} direction={'row'} spacing={4}>
 					{/* <Button
 								flex={1}
 								fontSize={'sm'}
@@ -142,7 +142,11 @@ export function Call(props) {
 							>
 								Message
 							</Button> */}
-					<Link href={c.join[isMobile() ? 'mobile' : 'desktop']} width={'full'}>
+					<Link
+						href={c.join[isMobile() ? 'mobile' : 'desktop']}
+						width={'full'}
+						_hover={{}} // remove text underline on hover
+					>
 						<Button
 							flex={1}
 							fontSize={'sm'}
@@ -164,6 +168,11 @@ export function Call(props) {
 						</Button>
 					</Link>
 				</Stack>
+				<Link href={c.join.url}>
+					<Text color={'gray.300'} fontSize={'xs'}>
+						{c.join.url}
+					</Text>
+				</Link>
 			</Box>
 		</GridItem>
 	);
